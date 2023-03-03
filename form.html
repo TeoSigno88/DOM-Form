@@ -78,8 +78,8 @@
 
 
 
-<script>
-    function CostructorPerson(name, age, city){
+<script type="module">
+function CostructorPerson(name, age, city){
     this.name = name;
     this.age = age;
     this.city = city || "";
@@ -89,6 +89,23 @@ const persons = [];
 
 
 import {printPerson, form1, birthDatePersons} from "./formPopulation.js"
+
+const form1 = document.forms.item(1);
+function birthDatePersons(argument){
+    if(argument instanceof Array){
+        const selectElement = form1.elements[0];    //Node
+
+        const firstOption = [selectElement[0]]; //Array
+        const newOptionElement = argument.map((argument) => new Option(argument.name + " " + argument.age)) //Array
+        const newContent = firstOption.concat(newOptionElement) //Array
+
+        selectElement.innerHTML = "";
+        
+        newContent.forEach((item) => {
+            selectElement.appendChild(item);
+        })
+    }
+}
 
 const form0 = document.forms.item(0);
 form0.addEventListener("submit", (event) =>{
